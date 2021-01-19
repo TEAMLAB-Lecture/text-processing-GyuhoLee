@@ -1,6 +1,7 @@
 #######################
 # Test Processing I   #
 #######################
+import re
 
 """
 NLP에서 흔히하는 전처리는 소문자 변환, 앞뒤 필요없는 띄어쓰기를 제거하는 등의 텍스트 정규화 (text normalization)입니다. 
@@ -33,7 +34,10 @@ def normalize(input_string):
              >>> tp.normalize(input_string2)
              'extra space'
     """
-    normalized_string = None
+    normalized_string = input_string.lower() # 소문자로 변환
+    normalized_string = normalized_string.strip() # 좌우 공백 제거
+    normalized_string = re.sub(' +', ' ', normalized_string) # 정규표현식으로 중복 공백 제거
+
     return normalized_string
 
 
@@ -58,5 +62,9 @@ def no_vowels(input_string):
             >>> tp.normalize(input_string2)
             ''W lv Pythn!'
     """
-    no_vowel_string = None
+    vowel_characters = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+    no_vowel_string = ""
+    for i in input_string:
+        if i not in vowel_characters:
+            no_vowel_string += i
     return no_vowel_string
